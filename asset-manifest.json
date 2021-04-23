@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/pathfinder/static/js/main.93180bbc.chunk.js",
+    "main.js.map": "/pathfinder/static/js/main.93180bbc.chunk.js.map",
+    "runtime-main.js": "/pathfinder/static/js/runtime-main.bce0aba9.js",
+    "runtime-main.js.map": "/pathfinder/static/js/runtime-main.bce0aba9.js.map",
+    "static/js/2.e6030dba.chunk.js": "/pathfinder/static/js/2.e6030dba.chunk.js",
+    "static/js/2.e6030dba.chunk.js.map": "/pathfinder/static/js/2.e6030dba.chunk.js.map",
+    "static/js/3.fd5bce94.chunk.js": "/pathfinder/static/js/3.fd5bce94.chunk.js",
+    "static/js/3.fd5bce94.chunk.js.map": "/pathfinder/static/js/3.fd5bce94.chunk.js.map",
+    "index.html": "/pathfinder/index.html",
+    "service-worker.js": "/pathfinder/service-worker.js",
+    "service-worker.js.map": "/pathfinder/service-worker.js.map",
+    "static/js/2.e6030dba.chunk.js.LICENSE.txt": "/pathfinder/static/js/2.e6030dba.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bce0aba9.js",
+    "static/js/2.e6030dba.chunk.js",
+    "static/js/main.93180bbc.chunk.js"
+  ]
+}
