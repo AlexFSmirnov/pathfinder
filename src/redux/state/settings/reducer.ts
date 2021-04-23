@@ -2,7 +2,7 @@ import { SettingsState, SettingsAction, API_KEY_CHANGED, API_LOADED } from './ty
 
 const settingsInitialState: SettingsState = {
     apiKey: null,
-    isApiLoaded: false,
+    getIsApiLoaded: false,
 };
 
 export const settingsReducer = (state = settingsInitialState, action: SettingsAction) => {
@@ -11,7 +11,7 @@ export const settingsReducer = (state = settingsInitialState, action: SettingsAc
             return { ...state, ...action.payload };
 
         case API_LOADED:
-            return { ...state, isApiLoaded: true };
+            return { ...state, getIsApiLoaded: true };
 
         default:
             return state;

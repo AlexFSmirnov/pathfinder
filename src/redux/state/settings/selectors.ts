@@ -9,7 +9,7 @@ export const getApiKey = createSelector<State, SettingsState, string | null>(
     settings => settings.apiKey,
 );
 
-export const isApiLoaded = createSelector<State, SettingsState, boolean>(
+export const getIsApiLoaded = createSelector<State, SettingsState, boolean>(
     getSettings,
-    settings => settings.isApiLoaded,
+    settings => settings.getIsApiLoaded,
 );

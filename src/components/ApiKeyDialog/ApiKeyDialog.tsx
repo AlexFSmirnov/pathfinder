@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
@@ -30,6 +30,10 @@ type ApiKeyDialogProps = OwnProps & StateProps & DispatchProps;
 
 const ApiKeyDialog: React.FC<ApiKeyDialogProps> = ({ isOpen, onClose, apiKey, setApiKey }) => {
     const [enteredApiKey, setEnteredApiKey] = useState(apiKey || '');
+
+    useEffect(() => {
+        setEnteredApiKey(apiKey || '');
+    }, [isOpen, apiKey]);
 
     const handleApiKeyDialogConfirmed = () => {
         setApiKey(enteredApiKey);

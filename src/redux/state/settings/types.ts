@@ -1,6 +1,6 @@
 export interface SettingsState {
     apiKey: string | null;
-    isApiLoaded: boolean;
+    getIsApiLoaded: boolean;
 }
 
 export const API_KEY_CHANGED = 'API_KEY_CHANGED';
