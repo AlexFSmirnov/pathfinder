@@ -10,11 +10,11 @@ const persistConfig = {
     key: 'root',
     storage,
     stateReconciler: autoMergeLevel2,
-    blacklist: ['ui'],
+    blacklist: ['settings'],
 };
 
 export const store = createStore(
-    persistReducer<State, Action>(persistConfig, rootReducer),
+    persistReducer<State, Action>(persistConfig, rootReducer as any),
     composeWithDevTools(),
 );
 
