@@ -1,29 +1,38 @@
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import GoogleMap from 'google-map-react';
+import { State } from '../../redux/types';
+import { getApiKey } from '../../redux/selectors';
 import { MapContainer } from './style';
 
-export interface MapProps {
-
+interface StateProps {
+    apiKey: string | null;
 }
 
-const Map: React.FC<MapProps> = ({}) => {
+const Map: React.FC<StateProps> = ({ apiKey }) => {
     const googleMapProps = {
         bootstrapURLKeys: {
-            key: 'AIzaSyDMXZE8ukqhhkdFraaFQshIiVTAywpYWns',
+            key: apiKey as string,
         },
         defaultCenter: {
-            lat: 59.95,
-            lng: 30.33,
+            lat: 55.75209773472255,
+            lng: 37.6174710947241,
         },
-        defaultZoom: 11,
+        defaultZoom: 12,
     };
 
     return (
         <MapContainer>
-            <GoogleMap {...googleMapProps}>
-
-            </GoogleMap>
+            {apiKey ? (
+                <GoogleMap {...googleMapProps}>
+                </GoogleMap>
+            ) : null}
         </MapContainer>
     );
 };
 
-export default Map;
+export default connect<StateProps, {} ,{}, State>(
+    createStructuredSelector({
+        apiKey: getApiKey,
+    }),
+)(Map);
