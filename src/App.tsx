@@ -5,8 +5,8 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { unstable_createMuiStrictModeTheme as createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core';
 import { orange } from '@material-ui/core/colors';
 import { State } from './redux/types';
-import { getApiKey, getIsApiLoaded } from './redux/selectors';
-import { setApiLoaded } from './redux/actions';
+import { getApiKey, getIsApiLoaded, getIsAppLoading } from './redux/selectors';
+import { setApiLoaded, findOptimalPath } from './redux/actions';
 import { GlobalStyle } from './style';
 import { Map, AppBar, Sidebar, ApiKeyDialog, AddWaypointDialog } from './components';
 
@@ -22,15 +22,17 @@ const theme = createMuiTheme({
 interface StateProps {
     apiKey: string | null;
     isApiLoaded: boolean;
+    isLoading: boolean;
 }
 
 interface DispatchProps {
     setApiLoaded: () => void;
+    findOptimalPath: () => void;
 }
 
 type AppProps = StateProps & DispatchProps;
 
-const App: React.FC<AppProps> = ({ apiKey, isApiLoaded, setApiLoaded }) => {
+const App: React.FC<AppProps> = ({ apiKey, isLoading, findOptimalPath, setApiLoaded }) => {
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const [isApiKeyDialogOpen, setIsApiKeyDialogOpen] = useState(false);
     const [isAddWaypointDialogVisible, setIsAddWaypointDialogVisible] = useState(false);
@@ -41,43 +43,9 @@ const App: React.FC<AppProps> = ({ apiKey, isApiLoaded, setApiLoaded }) => {
                 apiKey,
             });
 
-            // loader.load().then(setApiLoaded);
-            loader.load().then(() => {
-                setApiLoaded();
-                new google.maps.DirectionsService().route({
-                    origin: { lat: 55.67122083532962, lng: 37.55484212177921 },
-                    destination: { lat: 55.663765996038485, lng: 37.641359454608 },
-                    travelMode: google.maps.TravelMode.WALKING,
-                    // origin: [55.67122083532962, 37.55484212177921],
-                    // destination: [55.663765996038485, 37.641359454608],
-                }, r => {
-                    console.log(r);
-                    // r?.routes[0].overview_path.forEach(x => {
-                    //     console.log(x.lat(), x.lng());
-                    // })
-                });
-            });
+            loader.load().then(setApiLoaded);
         }
     }, [apiKey, setApiLoaded]);
-
-
-    // useEffect(() => {
-    //     console.log('yes');
-    //     const loader = new Loader({
-    //         apiKey: 'AIzaSyDMXZE8ukqhhkdFraaFQshIiVTAywpYWns',
-    //     });
-
-    //     loader.load().then(() => {
-    //         new google.maps.DirectionsService().route({
-    //             origin: { lat: 55.67122083532962, lng: 37.55484212177921 },
-    //             destination: { lat: 55.663765996038485, lng: 37.641359454608 },
-    //             travelMode: google.maps.TravelMode.TRANSIT,
-    //             // origin: [55.67122083532962, 37.55484212177921],
-    //             // destination: [55.663765996038485, 37.641359454608],
-    //         }, r => console.log(r));
-    //     });
-    // }, []);
-
 
     return (
         <ThemeProvider theme={theme}>
@@ -88,6 +56,8 @@ const App: React.FC<AppProps> = ({ apiKey, isApiLoaded, setApiLoaded }) => {
                 onMenuButtonClick={() => setIsSidebarVisible(true)}
                 onKeyButtonClick={() => setIsApiKeyDialogOpen(true)}
                 onAddButtonClick={() => setIsAddWaypointDialogVisible(true)}
+                onSearchButtonClick={findOptimalPath}
+                isLoading={isLoading}
             />
             <Sidebar isVisible={isSidebarVisible} onClose={() => setIsSidebarVisible(false)} />
 
@@ -103,8 +73,10 @@ export default connect<StateProps, DispatchProps, {}, State>(
     createStructuredSelector({
         apiKey: getApiKey,
         isApiLoaded: getIsApiLoaded,
+        isLoading: getIsAppLoading,
     }),
     {
         setApiLoaded,
+        findOptimalPath,
     }
 )(App);

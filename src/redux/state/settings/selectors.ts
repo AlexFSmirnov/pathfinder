@@ -13,3 +13,8 @@ export const getIsApiLoaded = createSelector<State, SettingsState, boolean>(
     getSettings,
     settings => settings.getIsApiLoaded,
 );
+
+export const getIsAppLoading = createSelector(
+    getSettings,
+    settings => settings.isLoading,
+);
